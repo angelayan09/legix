@@ -1,0 +1,240 @@
+/* -------------------------------
+   Global Styles
+---------------------------------*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  background-color: #ffd591;
+  color: #000000;
+  line-height: 1.6;
+  padding-top: 80px;
+}
+
+a {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+ul {
+  list-style: none;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* -------------------------------
+   Navbar
+---------------------------------*/
+nav {
+  position: fixed;
+  top: 0;             /* position from top of viewport */
+  left: 0;
+  width: 100%;        /* span full width */
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 10%;
+  background-color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+nav .logo {
+  font-size: 36px;
+  font-weight: bold;
+  color: #ffc76d;
+}
+
+nav ul {
+  display: flex;
+}
+
+nav li {
+  margin-left: 25px;
+}
+
+nav a {
+  color: #000000;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+nav a:hover,
+nav a.active {
+  color: #ffc76d;; /* lavender highlight */
+}
+
+/* -------------------------------
+   Hero Section (Home Page)
+---------------------------------*/
+.hero {
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(180deg, #ffab4a, #ffd591);
+  color: #ffffff;
+}
+
+.hero h1 {
+  font-size: 48px;
+  margin-bottom: 15px;
+}
+
+.hero p {
+  font-size: 20px;
+  margin-bottom: 25px;
+}
+
+.hero button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: #000000;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.hero button:hover {
+  transform: scale(1.1);
+}
+
+.section button {
+    transition: transform 0.2s;
+}
+
+.section button:hover {
+  transform: scale(1.1);
+}
+
+/* -------------------------------
+   Section Styling (About & Features)
+---------------------------------*/
+.section {
+  padding: 80px 10%;
+  text-align: center;
+}
+
+.section h2 {
+  font-size: 32px;
+  margin-bottom: 20px;
+  color: #ffffff;
+}
+
+.section p {
+  font-size: 18px;
+  max-width: 800px;
+  margin: 0 auto;
+  color: #ffffff;
+}
+
+/* -------------------------------
+   Feature Cards (Features Page)
+---------------------------------*/
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.card {
+  background-color: #F3F0FF;
+  padding: 30px;
+  border-radius: 12px;
+  width: 250px;
+  box-shadow: 0 6px 15px rgba(75, 0, 130, 0.2);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.3);
+}
+
+.card h3 {
+  margin-bottom: 10px;
+  color: #ffab4a;
+}
+
+.card p {
+  font-size: 16px;
+  color: #1F1B3A;
+}
+
+.results{
+    width: 90%;
+    margin: 40px auto;
+}
+
+.output-box{
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 25px;
+    background: #f9f9f9;
+    text-align: left;
+}
+
+.output-box h3{
+    margin-bottom: 10px;
+}
+
+#simplifiedOutput,
+#summaryOutput,
+#analysisOutput{
+    white-space: pre-wrap;
+    color: #000000;
+}
+
+/* -------------------------------
+   Footer
+---------------------------------*/
+footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #ffffff;
+  color: #000000;
+}
+
+/* -------------------------------
+   Highlight Classes (Law)
+---------------------------------*/
+.highlight-obligation { background-color: #8B008B; color: white; padding: 2px 6px; border-radius: 4px; }
+.highlight-rights { background-color: #2AB1B1; color: white; padding: 2px 6px; border-radius: 4px; }
+.highlight-deadline { background-color: #FF9F43; color: white; padding: 2px 6px; border-radius: 4px; }
+.highlight-penalty { background-color: #DC143C; color: white; padding: 2px 6px; border-radius: 4px; }
+
+/* -------------------------------
+   Responsive
+---------------------------------*/
+@media (max-width: 768px) {
+  nav ul {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cards {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .hero h1 {
+    font-size: 36px;
+  }
+
+  .hero p {
+    font-size: 16px;
+  }
+}

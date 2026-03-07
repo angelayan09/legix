@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hello world</title>
+
+
+<!-- CSS -->
+<link rel="stylesheet" href="style.css">
+
+
+</head>
+
+<body>
+
+
+<!-- Navigation Bar -->
+<nav class="navbar">
+    <div class="logo">Legix</div>
+    <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="simplify.html" class="active">Simplify</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</nav>
+
+<section class="section" id="simplifier">
+  <h2>Legal Text Simplifier</h2>
+  <p>Paste text, upload a file, or enter a URL to simplify complex legal text.</p>
+
+  <!-- Input Options -->
+  <div class="simplifier-inputs">
+    <textarea id="textInput" rows="6" placeholder="Paste your text here..." style="width:100%; padding:12px; border-radius:8px; border:1px solid #ccc;"></textarea>
+
+    <p style="margin:10px 0; font-weight:bold;">OR</p>
+
+    <input type="file" id="fileInput" accept=".txt,.pdf" style="margin-bottom:10px;">
+    
+    <p style="margin:10px 0; font-weight:bold;">OR</p>
+    
+    <input type="url" id="urlInput" placeholder="Paste a URL here..." style="width:100%; padding:12px; border-radius:8px; border:1px solid #ccc;">
+  </div>
+
+  <!-- Simplify Button -->
+  <button id="simplifyBtn" style="margin-top:15px; padding:12px 24px; border:none; border-radius:8px; background-color:#ffab4a; color:#000000; font-weight:bold; cursor:pointer;">Simplify</button>
+
+  <!-- Output Sections -->
+  <div class="results">
+  <div id="simplifiedText" style="margin-top:30px; padding:20px; background-color:#fbe4c9; border-radius:12px; display:none;">
+    <div class="output-box">
+      <h3>Simplified Text</h3>
+      <p id="simplifiedOutput"></p>
+    </div>
+  </div>
+
+  <div id="summaryText" style="margin-top:20px; padding:20px; background-color:#fbe4c9; border-radius:12px; display:none;">
+    <div class="output-box">
+      <h3>Summary</h3>
+      <p id="summaryOutput"></p>
+    </div>
+  </div>
+
+  <div id="analysisText" style="margin-top:30px; padding:20px; background-color:#fbe4c9; border-radius:12px; display:none;">
+    <div class="output-box">
+      <h3>Analysis</h3>
+      <p id="analysisOutput"></p>
+    </div>
+  </div>
+
+  </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="section">
+    <h2>Contact</h2>
+    <p>Email: example@email.com</p>
+</section>
+
+<!-- Footer -->
+<footer>
+    <p>© 2026 LawSimplifier Team. All Rights Reserved.</p>
+</footer>
+
+<!-- JavaScript -->
+<script src="script.js"></script>
+
+
+</body>
+</html>
