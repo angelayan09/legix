@@ -229,6 +229,13 @@ nav a.active {
     color: #000000;
 }
 
+#impactOutput {
+  background: #f7f7f7;
+  padding: 12px;
+  border-radius: 8px;
+  white-space: pre-wrap;
+}
+
 /* -------------------------------
    Footer
 ---------------------------------*/

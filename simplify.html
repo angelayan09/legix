@@ -19,11 +19,11 @@
 
 <!-- Navigation Bar -->
 <nav class="navbar">
-    <div class="logo">Legible</div>
+    <div class="logo">Legix</div>
     <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="simplify.html" class="active">Simplify</a></li>
-        <li><a href="about.html">Our Team</a></li>
+        <li><a href="about.html">About</a></li>
         <li><a href="#contact">Contact</a></li>
     </ul>
 </nav>
@@ -45,9 +45,6 @@
   <button id="simplifyBtn" style="margin-top:15px; padding:12px 24px; border:none; border-radius:8px; background-color:#ffab4a; color:#000000; font-weight:bold; cursor:pointer;">Simplify</button>
 
   <!-- Output Sections -->
-  <p id="statusMsg" style="display:none; margin-top:14px; font-weight:bold; color:#333;"></p>
-<div id="billMetadata" style="display:none; margin-top:30px;"></div>
-  
   <div class="results">
   <div id="simplifiedText" style="margin-top:30px; padding:20px; background-color:#fbe4c9; border-radius:12px; display:none;">
     <div class="output-box">
@@ -76,17 +73,23 @@
     <option value="Spanish">Spanish</option>
     <option value="Chinese">Chinese</option>
     <option value="French">French</option>
-    <option value="Korean">Korean</option>
-    <option value="Tagalog">Tagalog</option>
-    <option value="Hindi">Hindi</option>
-    <option value="Arabic">Arabic</option>
-    <option value="Vietnamese">Vietnamese</option>
   </select>
   <button id="translateBtn"
     style="margin-left:10px; padding:10px 18px; border:none; border-radius:8px; background:#4CAF50; color:white; font-weight:bold; cursor:pointer;">
     Translate
   </button>
-</div>
+  </div>
+
+  <div id="impactText" style="text-align: left; margin-top:30px; padding:20px; background-color:#fbe4c9; border-radius:12px;">
+    <h3>How does this affect YOU?</h3>
+    <div id="impactOutput"></div>
+  </div>
+
+  <div id="charts" style="margin-top:20px;">
+    <h3>📊 Demographics</h3>
+    <canvas id="ageChart" height="200"></canvas>
+    <canvas id="raceChart" height="200" style="margin-top:30px;"></canvas>
+  </div>
 
   <div class="action">
   <div id="actions" style="margin-top:30px; padding:20px; background-color:#fbe4c9; border-radius:12px;">
@@ -102,10 +105,11 @@
 
 <!-- Footer -->
 <footer>
-    <p>© 2026 Legible Team. All Rights Reserved.</p>
+    <p>© 2026 LawSimplifier Team. All Rights Reserved.</p>
 </footer>
 
 <!-- JavaScript -->
+ <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="script.js"></script>
 
 
