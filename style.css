@@ -309,6 +309,26 @@ button:hover{
   gap:40px;
 }
 
+.dashboard-card{
+  background:rgb(252, 201, 99);
+  border-radius:18px;
+  padding:30px;
+  margin-top:30px;
+
+  box-shadow:0 15px 40px rgba(0,0,0,0.08);
+}
+
+.output-box,
+.dashboard-card{
+  transition:transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.output-box:hover,
+.dashboard-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 20px 45px rgba(0,0,0,0.15);
+}
+
 .ai-loading{
   display:flex;
   flex-direction:column;
