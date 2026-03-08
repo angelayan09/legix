@@ -97,7 +97,7 @@ nav a.active {
 }
 
 .hero button {
-  padding: 20px 40px;
+  padding: 15px 30px;
   border: none;
   border-radius: 8px;
   background-color: #ffffff;
@@ -105,7 +105,7 @@ nav a.active {
   font-weight: bold;
   cursor: pointer;
   transition: transform 0.2s;
-  font-size: 24px;
+  font-size: 20px;
 }
 .hero button:hover {
   transform: scale(1.1);
