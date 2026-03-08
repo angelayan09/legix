@@ -141,7 +141,7 @@ Analyze the following law and determine who it most affects: ${legalText}
 Return the answer in the following sections:
 
 Impact Score: 
-• A score from 1-10. Then either the word LOW (if 1-3), MEDIUM (if 4-7), or HIGH (if 8-10) in parentheses following the number. Then a colored square emoji (🟥 8-10, 🟧 4-7, 🟨 1-3) based on impact score.
+• A numerical score from 1-10. Then one of the words LOW (if score 1-3), MEDIUM (if 4-7), or HIGH (if 8-10) in parentheses following the number. Then a colored square emoji (🟥 8-10, 🟧 4-7, 🟨 1-3) based on impact score.
 
 Groups Affected
 • List the main groups of people impacted.
