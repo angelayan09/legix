@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
-const fetch = (...args) => import("node-fetch").then(({ default: f }) => f(...args));
+//const fetch = (...args) => import("node-fetch").then(({ default: f }) => f(...args));
+const axios = require("axios");
 
 const app = express();
 const PORT = 5001;
@@ -58,9 +59,9 @@ app.get("/api/congress", async (req, res) => {
 
     try {
         const[detailRes, actionsRes, textRes] = await Promise.all([
-        fetch(`${base}${key}`),           // bill title, sponsor, dates
-        fetch(`${base}/actions${key}&limit=10`),   // action history / progression
-        fetch(`${base}/text${key}&limit=5`),      // links to the actual bill text
+        axios(`${base}${key}`),           // bill title, sponsor, dates
+        axios(`${base}/actions${key}&limit=10`),   // action history / progression
+        axios(`${base}/text${key}&limit=5`),      // links to the actual bill text
     ]);
 
     const [detailData, actionsData, textData] = await Promise.all([
@@ -121,7 +122,7 @@ app.get("/api/congress", async (req, res) => {
     let billText = null;
     if (textUrl) {
       try {
-        const txtRes  = await fetch(textUrl);
+        const txtRes  = await axios(textUrl);
         const rawHtml = await txtRes.text();
         // Strip HTML tags for clean text
         billText = rawHtml.replace(/<[^>]+>/g, " ").replace(/\s{2,}/g, " ").trim();
@@ -137,7 +138,7 @@ app.get("/api/congress", async (req, res) => {
     
     catch (err) {
          console.error("Congress API error:", err);
-    return res.status(500).json({ error: "Failed to fetch bill data: " + err.message });
+    return res.status(500).json({ error: "Failed to axios bill data: " + err.message });
     }
     });
 
