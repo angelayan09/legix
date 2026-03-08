@@ -128,7 +128,6 @@ function renderBillMetadata({ details, sponsor, progress }) {
 // ----------------------------
 document.getElementById("simplifyBtn").addEventListener("click", async () => {
   const textArea = document.getElementById("textInput");
-  const fileInput = document.getElementById("fileInput");
   const urlInput = document.getElementById("urlInput");
 
   let legalText = "";
@@ -138,11 +137,6 @@ document.getElementById("simplifyBtn").addEventListener("click", async () => {
   // 1️⃣ Priority: textarea
   if (textArea.value.trim() !== "") {
     legalText = textArea.value.trim();
-  }
-  // 2️⃣ Next: file
-  else if (fileInput.files.length > 0) {
-    const file = fileInput.files[0];
-    legalText = await readFile(file);
   }
   // 3️⃣ Last: URL
  else if (urlInput.value.trim() !== "") {
