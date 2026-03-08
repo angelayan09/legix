@@ -46,7 +46,7 @@ nav {
 }
 
 nav .logo {
-  font-size: 40px;
+  font-size: 64px;
   font-weight: bold;
   color: #ffc76d;
 }
@@ -92,14 +92,15 @@ nav a.active {
 }
 
 .hero p {
-  font-size: 30px;
+  font-size: 40px;
+  font-style: italic;
   margin-bottom: 25px;
 }
 
 .hero button {
   padding: 12px 24px;
   border: none;
-  border-radius: 10px;
+  border-radius: 15px;
   background-color: #ffffff;
   color: #000000;
   font-weight: bold;
