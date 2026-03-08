@@ -1,3 +1,5 @@
+const SERVER = "http://localhost:5001";
+
 async function queryOllama(prompt) {
   const response = await fetch("http://localhost:5001/api/ollama", {
     method: "POST",
@@ -19,6 +21,108 @@ async function queryOllama(prompt) {
   return data.choices[0].text;
 }
 
+// mayas stuff
+function isCongressUrl(url) {
+  try {
+    return new URL(url).hostname.includes("congress.gov");
+  } catch {
+    return false;
+  }
+}
+
+async function fetchCongressBill(url) {
+  const res = await fetch(`${SERVER}/api/congress?url=${encodeURIComponent(url)}`);
+  if (!res.ok) {
+    const err = await res.json();
+    throw new Error(err.error || "Failed to fetch bill data");
+  }
+  return res.json();
+}
+
+function isCongressUrl(url) {
+  try {
+    return new URL(url).hostname.includes("congress.gov");
+  } catch {
+    return false;
+  }
+}
+
+function renderBillMetadata({ details, sponsor, progress }) {
+  const metaDiv = document.getElementById("billMetadata");
+  if (!metaDiv) return;
+
+  const recentActionsHtml = progress.recentActions.map(a => `
+    <div class="action-item">
+      <span class="action-date">${a.date}</span>
+      <span class="action-text">${a.text}</span>
+    </div>
+  `).join("");
+
+  const subjectsHtml = details.subjects.slice(0, 6).map(s =>
+    `<span class="subject-tag">${s}</span>`
+  ).join("");
+
+  metaDiv.innerHTML = `
+    <div class="meta-card">
+      <div class="meta-header">
+        <div class="meta-badge">${details.billType} ${details.billNumber}</div>
+        <div class="meta-congress">${progress.congress}th Congress &bull; ${progress.chamber}</div>
+      </div>
+      <h3 class="meta-title">${details.title}</h3>
+      ${details.shortTitle ? `<p class="meta-subtitle">${details.shortTitle}</p>` : ""}
+      <div class="meta-grid">
+        <div class="meta-block">
+          <div class="meta-label">Sponsor</div>
+          <div class="meta-value sponsor-name">${sponsor.name}</div>
+          <div class="meta-sub">
+            ${sponsor.party} &bull; ${sponsor.state}
+            ${sponsor.district ? ` District ${sponsor.district}` : ""}
+          </div>
+        </div>
+        <div class="meta-block">
+          <div class="meta-label">Introduced</div>
+          <div class="meta-value">${progress.introduced}</div>
+        </div>
+        <div class="meta-block">
+          <div class="meta-label">Cosponsors</div>
+          <div class="meta-value">${details.cosponsors}</div>
+        </div>
+        <div class="meta-block">
+          <div class="meta-label">Latest Action</div>
+          <div class="meta-value status-badge">${progress.latestActionDate}</div>
+          <div class="meta-sub">${progress.latestActionText}</div>
+        </div>
+      </div>
+      <div class="meta-timeline">
+        <div class="meta-label" style="margin-bottom:8px;">Recent Activity</div>
+        ${recentActionsHtml || "<p>No actions recorded.</p>"}
+      </div>
+      ${subjectsHtml ? `
+        <div class="meta-subjects">
+          <div class="meta-label" style="margin-bottom:6px;">Subject Areas</div>
+          <div class="subjects-list">${subjectsHtml}</div>
+        </div>` : ""}
+    </div>
+  `;
+  metaDiv.style.display = "block";
+
+  function setLoading(active, message = "") {
+    const el = document.getElementById("statusMsg");
+    if (!el) return;
+    el.style.display = active ? "block" : "none";
+    el.style.color = "#333";
+    el.innerText = message;
+  }
+
+  function showError(msg) {
+    const el = document.getElementById("statusMsg");
+    if (!el) return;
+    el.style.display = "block";
+    el.style.color = "#c0392b";
+    el.innerText = "⚠️ " + msg;
+  }
+}
+
 // ----------------------------
 // Simplify Button Event
 // ----------------------------
@@ -27,25 +131,55 @@ document.getElementById("simplifyBtn").addEventListener("click", async () => {
   const fileInput = document.getElementById("fileInput");
   const urlInput = document.getElementById("urlInput");
 
-  let legalText = ""
-  
+  let legalText = "";
+  let isCongressBill = false;
+  let billMeta = null;
+
   // 1️⃣ Priority: textarea
   if (textArea.value.trim() !== "") {
     legalText = textArea.value.trim();
-  } 
+  }
   // 2️⃣ Next: file
   else if (fileInput.files.length > 0) {
     const file = fileInput.files[0];
     legalText = await readFile(file);
-  } 
-  // 3️⃣ Last: URL
-  else if (urlInput.value.trim() !== "") {
-    legalText = await fetchTextFromURL(urlInput.value.trim());
-  } 
-  else {
-    alert("Please provide text, upload a file, or enter a URL.");
-    return;
   }
+  // 3️⃣ Last: URL
+ else if (urlInput.value.trim() !== "") {
+    const url = urlInput.value.trim();
+
+      if (isCongressUrl(url)) {
+        setLoading(true, "Fetching bill from Congress.gov...");
+        try {
+          billMeta = await fetchCongressBill(url);
+          renderBillMetadata(billMeta);
+          isCongressBill = true;
+          legalText = billMeta.billText;
+
+          if (!legalText) {
+            setLoading(false);
+            showError("Bill found, but full text is not yet available on Congress.gov.");
+            return;
+          }
+        } catch (err) {
+          setLoading(false);
+          showError("Error fetching bill: " + err.message);
+          return;
+        }
+      } else {
+        legalText = await fetchTextFromURL(url);
+      }
+
+    } else {
+      alert("Please provide text, upload a file, or enter a URL.");
+      return;
+    }
+
+    if (!legalText) {
+      showError("Could not retrieve any text to simplify.");
+      return;
+    }
+
 
   const prompt = `Simplify the following legal text into plain, easy-to-understand English:\n\n${legalText}. Only output the simplified text and nothing else.`;
 
@@ -68,7 +202,7 @@ document.getElementById("simplifyBtn").addEventListener("click", async () => {
   try {
     const simplified = await queryOllama(prompt);
     simplifiedOutput.innerText = simplified;
-    
+
     const prompt1 = `Summarize the following text into short bullet point(s):\n${simplified}. Only output the summarized text and nothing else.`
     const summary = await queryOllama(prompt1);
     summaryOutput.innerText = summary;
@@ -139,5 +273,5 @@ function getTakeActionLinks(billName, zip) {
   ];
 
   return actions.filter(a => a.query)
-                .map(a => ({ ...a, link: `https://www.google.com/search?q=${encodeURIComponent(a.query)}` }));
+    .map(a => ({ ...a, link: `https://www.google.com/search?q=${encodeURIComponent(a.query)}` }));
 }
