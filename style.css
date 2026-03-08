@@ -254,9 +254,8 @@ footer {
     font-size: 16px;
   }
 }
-.meta-card { background: #fff; border-radius: 14px; box-shadow: ...; }
+.meta-card { background: #fff; border-radius: 14px; }
 .meta-badge { background: #ffab4a; color: #fff; border-radius: 20px; }
 .meta-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
 .action-item { display: flex; gap: 14px; }
 .subject-tag { background: #fff3e0; border-radius: 20px; }
-```
