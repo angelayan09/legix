@@ -80,7 +80,7 @@ nav a.active {
   justify-content: center;
   align-items: center;
   text-align: center;
-  background: linear-gradient(180deg, #ffab4a, #ffd591);
+  background-color: linear-gradient(180deg, #ffab4a, #ffd591);
   color: #ffffff;
 }
 
