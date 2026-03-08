@@ -1,5 +1,21 @@
 const SERVER = "http://localhost:5001";
 
+function setLoading(active, message = "") {
+  const el = document.getElementById("statusMsg");
+  if (!el) return;
+  el.style.display = active ? "block" : "none";
+  el.style.color = "#333";
+  el.innerText = message;
+}
+
+function showError(msg) {
+  const el = document.getElementById("statusMsg");
+  if (!el) return;
+  el.style.display = "block";
+  el.style.color = "#c0392b";
+  el.innerText = "⚠️ " + msg;
+}
+
 async function queryOllama(prompt) {
   const response = await fetch("http://localhost:5001/api/ollama", {
     method: "POST",
@@ -37,14 +53,6 @@ async function fetchCongressBill(url) {
     throw new Error(err.error || "Failed to fetch bill data");
   }
   return res.json();
-}
-
-function isCongressUrl(url) {
-  try {
-    return new URL(url).hostname.includes("congress.gov");
-  } catch {
-    return false;
-  }
 }
 
 function renderBillMetadata({ details, sponsor, progress }) {
@@ -106,21 +114,6 @@ function renderBillMetadata({ details, sponsor, progress }) {
   `;
   metaDiv.style.display = "block";
 
-  function setLoading(active, message = "") {
-    const el = document.getElementById("statusMsg");
-    if (!el) return;
-    el.style.display = active ? "block" : "none";
-    el.style.color = "#333";
-    el.innerText = message;
-  }
-
-  function showError(msg) {
-    const el = document.getElementById("statusMsg");
-    if (!el) return;
-    el.style.display = "block";
-    el.style.color = "#c0392b";
-    el.innerText = "⚠️ " + msg;
-  }
 }
 
 // ----------------------------
@@ -139,40 +132,41 @@ document.getElementById("simplifyBtn").addEventListener("click", async () => {
     legalText = textArea.value.trim();
   }
   // 3️⃣ Last: URL
- else if (urlInput.value.trim() !== "") {
+  else if (urlInput.value.trim() !== "") {
     const url = urlInput.value.trim();
 
-      if (isCongressUrl(url)) {
-        setLoading(true, "Fetching bill from Congress.gov...");
-        try {
-          billMeta = await fetchCongressBill(url);
-          renderBillMetadata(billMeta);
-          isCongressBill = true;
-          legalText = billMeta.billText;
+    if (isCongressUrl(url)) {
+      setLoading(true, "Fetching bill from Congress.gov...");
+      try {
+        billMeta = await fetchCongressBill(url);
+        renderBillMetadata(billMeta);
+        isCongressBill = true;
+        legalText = billMeta.billText;
 
-          if (!legalText) {
-            setLoading(false);
-            showError("Bill found, but full text is not yet available on Congress.gov.");
-            return;
-          }
-        } catch (err) {
+        if (!legalText) {
           setLoading(false);
-          showError("Error fetching bill: " + err.message);
+          showError("Bill found, but full text is not yet available on Congress.gov.");
           return;
         }
-      } else {
-        legalText = await fetchTextFromURL(url);
+        setLoading(false);
+      } catch (err) {
+        setLoading(false);
+        showError("Error fetching bill: " + err.message);
+        return;
       }
-
     } else {
-      alert("Please provide text, upload a file, or enter a URL.");
-      return;
+      legalText = await fetchTextFromURL(url);
     }
 
-    if (!legalText) {
-      showError("Could not retrieve any text to simplify.");
-      return;
-    }
+  } else {
+    alert("Please provide text, upload a file, or enter a URL.");
+    return;
+  }
+
+  if (!legalText) {
+    showError("Could not retrieve any text to simplify.");
+    return;
+  }
 
 
   const prompt = `Simplify the following legal text into plain, easy-to-understand English:\n\n${legalText}. Only output the simplified text and nothing else.`;
@@ -234,7 +228,7 @@ document.getElementById("simplifyBtn").addEventListener("click", async () => {
 // ----------------------------
 // Translate Button
 // ----------------------------
-  document.getElementById("translateBtn").addEventListener("click", async () => {
+document.getElementById("translateBtn").addEventListener("click", async () => {
   const language = document.getElementById("languageSelect").value;
   const simpOutput = document.getElementById("simplifiedOutput");
   const summOutput = document.getElementById("summaryOutput");
@@ -242,7 +236,7 @@ document.getElementById("simplifyBtn").addEventListener("click", async () => {
   const simp = simpOutput.innerText;
   const summ = summOutput.innerText;
   const analy = analyOutput.innerText;
-  
+
   if (!simp) {
     alert("Please simplify text first.");
     return;
@@ -256,7 +250,7 @@ document.getElementById("simplifyBtn").addEventListener("click", async () => {
       `Fully translate the following text into ${language}. Only output the translated text:\n\n${simp}`;
     const translatedSimplified = await queryOllama(translateSimplifiedPrompt);
     simpOutput.innerText = translatedSimplified;
-    
+
     const translateSummaryPrompt =
       `Fully translate the following text into ${language}. Only output the translated text:\n\n${summ}`;
     const translatedSummary = await queryOllama(translateSummaryPrompt);
