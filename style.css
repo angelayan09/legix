@@ -142,6 +142,7 @@ nav a.active {
    Feature Cards (Features Page)
 ---------------------------------*/
 .cards {
+  background: linear-gradient(180deg, #ffab4a, #ffd591);
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
