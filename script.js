@@ -81,6 +81,26 @@ document.getElementById("simplifyBtn").addEventListener("click", async () => {
     simplifiedOutput.innerText = "Error: " + err.message;
     console.error(err);
   }
+
+  // ----------------------------
+  // Take Action Buttons
+  // ----------------------------
+  const billName = legalText.slice(0, 50) + (legalText.length > 50 ? "..." : "");
+  const zip = document.getElementById("zipInput").value.trim();
+  const actionLinks = getTakeActionLinks(billName, zip);
+
+  const actionOutput = document.getElementById("actionOutput");
+  actionOutput.innerHTML = ""; // clear old
+  actionLinks.forEach(action => {
+    const li = document.createElement("li");
+    li.style.marginBottom = "10px";
+    li.innerHTML = `
+      <span style="margin-right:8px;">${action.icon}</span>
+      <strong>${action.label}</strong>
+      <a href="${action.link}" target="_blank" class="action-button">${action.display}</a>
+    `;
+    actionOutput.appendChild(li);
+  });
 });
 
 // ----------------------------
@@ -108,4 +128,16 @@ async function fetchTextFromURL(url) {
     console.error(err);
     return "";
   }
+}
+
+function getTakeActionLinks(billName, zip) {
+  const shortLabel = billName.split(" ").slice(0, 5).join(" ") + (billName.split(" ").length > 5 ? "..." : "");
+  const actions = [
+    { icon: "🖊️", label: "Sign a Petition             ", display: `Sign petition about ${shortLabel}`, query: `Sign petition about ${billName}` },
+    { icon: "📞", label: "Contact Local Representative", display: zip ? `Contact local representative ${zip}` : null, query: zip ? `Contact local representative ${zip}` : null },
+    { icon: "🏛️", label: "Find City/Town Hall         ", display: zip ? `City hall near ${zip}` : null, query: zip ? `City hall near ${zip}` : null }
+  ];
+
+  return actions.filter(a => a.query)
+                .map(a => ({ ...a, link: `https://www.google.com/search?q=${encodeURIComponent(a.query)}` }));
 }
