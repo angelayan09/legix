@@ -238,6 +238,39 @@ document.getElementById("simplifyBtn").addEventListener("click", async () => {
 });
 
 // ----------------------------
+// Translate Button
+// ----------------------------
+  document.getElementById("translateBtn").addEventListener("click", async () => {
+  const language = document.getElementById("languageSelect").value;
+  const simpOutput = document.getElementById("simplifiedOutput");
+  const summOutput = document.getElementById("summaryOutput");
+  const simp = simpOutput.innerText;
+  const summ = summOutput.innerText;
+  
+  if (!simp) {
+    alert("Please simplify text first.");
+    return;
+  }
+  simpOutput.innerText = "Translating...";
+  summOutput.innerText = "Translating...";
+
+  try {
+    const translateSimplifiedPrompt =
+      `Fully translate the following text into ${language}. Only output the translated text:\n\n${simp}`;
+    const translatedSimplified = await queryOllama(translateSimplifiedPrompt);
+    simpOutput.innerText = translatedSimplified;
+    
+    const translateSummaryPrompt =
+      `Fully translate the following text into ${language}. Only output the translated text:\n\n${summ}`;
+    const translatedSummary = await queryOllama(translateSummaryPrompt);
+    summOutput.innerText = translatedSummary;
+  } catch (err) {
+    console.error(err);
+  }
+
+});
+
+// ----------------------------
 // Helper: Read text from uploaded file
 // ----------------------------
 function readFile(file) {
