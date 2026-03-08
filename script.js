@@ -244,8 +244,10 @@ document.getElementById("simplifyBtn").addEventListener("click", async () => {
   const language = document.getElementById("languageSelect").value;
   const simpOutput = document.getElementById("simplifiedOutput");
   const summOutput = document.getElementById("summaryOutput");
+  const analyOutput = document.getElementById("analysisOutput");
   const simp = simpOutput.innerText;
   const summ = summOutput.innerText;
+  const analy = analyOutput.innerText;
   
   if (!simp) {
     alert("Please simplify text first.");
@@ -253,6 +255,7 @@ document.getElementById("simplifyBtn").addEventListener("click", async () => {
   }
   simpOutput.innerText = "Translating...";
   summOutput.innerText = "Translating...";
+  analyOutput.innerText = "Translating...";
 
   try {
     const translateSimplifiedPrompt =
@@ -264,6 +267,12 @@ document.getElementById("simplifyBtn").addEventListener("click", async () => {
       `Fully translate the following text into ${language}. Only output the translated text:\n\n${summ}`;
     const translatedSummary = await queryOllama(translateSummaryPrompt);
     summOutput.innerText = translatedSummary;
+
+    const translateAnalysisPrompt =
+      `Fully translate the following text into ${language}. Only output the translated text:\n\n${summ}`;
+    const translatedAnalysis = await queryOllama(translateAnalysisPrompt);
+    analyOutput.innerText = translatedAnalysis;
+
   } catch (err) {
     console.error(err);
   }
