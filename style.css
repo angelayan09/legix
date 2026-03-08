@@ -85,8 +85,9 @@ nav a.active {
 }
 
 .hero h1 {
-  font-size: 48px;
-  margin-bottom: 15px;
+  font-size: 64px;
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
 .hero p {
@@ -95,9 +96,10 @@ nav a.active {
 }
 
 .hero button {
-  padding: 12px 24px;
+  padding: 20px 40px;
   border: none;
-  border-radius: 8px;
+  font-size: 18px; 
+  border-radius: 15px;
   background-color: #ffffff;
   color: #000000;
   font-weight: bold;
@@ -132,7 +134,7 @@ nav a.active {
 }
 
 /* -------------------------------
-   Section Styling (About & Features)
+  simplify
 ---------------------------------*/
 .section {
   padding: 80px 10%;
@@ -140,8 +142,9 @@ nav a.active {
 }
 
 .section h2 {
-  font-size: 32px;
-  margin-bottom: 20px;
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 10px;
   color: #ffffff;
 }
 
@@ -153,14 +156,14 @@ nav a.active {
 }
 
 /* -------------------------------
-   Feature Cards (Features Page)
+   About page 
 ---------------------------------*/
 .cards {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 30px;
-  margin-top: 40px;
+  margin-top: 70px;
 }
 
 .card {
@@ -168,7 +171,7 @@ nav a.active {
   padding: 30px;
   border-radius: 12px;
   width: 250px;
-  box-shadow: 0 6px 15px rgba(75, 0, 130, 0.2);
+  box-shadow: 0 6px 15px rgba(255, 255, 255, 0.2);
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
@@ -192,6 +195,10 @@ nav a.active {
     margin: 40px auto;
 }
 
+/* -------------------------------
+   more about simplify 
+---------------------------------*/
+
 .output-box{
     border: 2px solid #ddd;
     border-radius: 10px;
@@ -211,6 +218,9 @@ nav a.active {
     white-space: pre-wrap;
     color: #000000;
 }
+
+
+
 
 /* -------------------------------
    Footer
