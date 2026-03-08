@@ -80,14 +80,13 @@ nav a.active {
   justify-content: center;
   align-items: center;
   text-align: center;
-  background-color: linear-gradient(180deg, #ffab4a, #ffd591);
+  background: linear-gradient(180deg, #ffab4a, #ffd591);
   color: #ffffff;
 }
 
 .hero h1 {
-  font-size: 64px;
-  font-weight: bold;
-  margin-bottom: 10px;
+  font-size: 48px;
+  margin-bottom: 15px;
 }
 
 .hero p {
@@ -96,10 +95,9 @@ nav a.active {
 }
 
 .hero button {
-  padding: 20px 40px;
+  padding: 12px 24px;
   border: none;
-  font-size: 18px; 
-  border-radius: 15px;
+  border-radius: 8px;
   background-color: #ffffff;
   color: #000000;
   font-weight: bold;
@@ -134,7 +132,7 @@ nav a.active {
 }
 
 /* -------------------------------
-  simplify
+   Section Styling (About & Features)
 ---------------------------------*/
 .section {
   padding: 80px 10%;
@@ -142,9 +140,8 @@ nav a.active {
 }
 
 .section h2 {
-  font-size: 36px;
-  font-weight: bold;
-  margin-bottom: 10px;
+  font-size: 32px;
+  margin-bottom: 20px;
   color: #ffffff;
 }
 
@@ -156,14 +153,14 @@ nav a.active {
 }
 
 /* -------------------------------
-   About page 
+   Feature Cards (Features Page)
 ---------------------------------*/
 .cards {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 20px;
-  margin-top: 70px;
+  gap: 30px;
+  margin-top: 40px;
 }
 
 .card {
@@ -171,7 +168,7 @@ nav a.active {
   padding: 30px;
   border-radius: 12px;
   width: 250px;
-  box-shadow: 0 6px 15px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 6px 15px rgba(75, 0, 130, 0.2);
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
@@ -181,12 +178,12 @@ nav a.active {
 }
 
 .card h3 {
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   color: #ffab4a;
 }
 
 .card p {
-  font-size: 20px;
+  font-size: 16px;
   color: #1F1B3A;
 }
 
@@ -194,10 +191,6 @@ nav a.active {
     width: 90%;
     margin: 40px auto;
 }
-
-/* -------------------------------
-   more about simplify 
----------------------------------*/
 
 .output-box{
     border: 2px solid #ddd;
@@ -218,9 +211,6 @@ nav a.active {
     white-space: pre-wrap;
     color: #000000;
 }
-
-
-
 
 /* -------------------------------
    Footer
