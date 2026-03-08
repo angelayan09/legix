@@ -309,6 +309,35 @@ button:hover{
   gap:40px;
 }
 
+.ai-loading{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  margin-top:20px;
+}
+
+.ai-loading .dot{
+  width:12px;
+  height:12px;
+  background:#ffab4a;
+  border-radius:50%;
+  margin:4px;
+  animation:bounce 1s infinite alternate;
+}
+
+.ai-loading .dot:nth-child(2){
+  animation-delay:0.2s;
+}
+
+.ai-loading .dot:nth-child(3){
+  animation-delay:0.4s;
+}
+
+@keyframes bounce{
+  from{transform:translateY(0)}
+  to{transform:translateY(-10px)}
+}
+
 /* -------------------------------
    Footer
 ---------------------------------*/

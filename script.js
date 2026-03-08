@@ -83,6 +83,8 @@ document.getElementById("simplifyBtn").addEventListener("click", async () => {
   const prompt = `Simplify the following legal text into plain, easy-to-understand English:\n\n${legalText}. Only output the simplified text and nothing else.`;
 
   // Show loading
+  document.getElementById("loading").style.display = "flex";
+
   const simplifiedDiv = document.getElementById("simplifiedText");
   const simplifiedOutput = document.getElementById("simplifiedOutput");
   simplifiedDiv.style.display = "block";
@@ -109,6 +111,8 @@ document.getElementById("simplifyBtn").addEventListener("click", async () => {
     const prompt2 = `Extract the obligations/duties, rights/protections/benefits, penalties/risks, and important dates/deadlines in plain, easy-to-understand English from the following text:\n${legalText}. Output these 4 exact headers along with the extracted information under each, and nothing else.`
     const analysis = await queryOllama(prompt2);
     analysisOutput.innerText = analysis;
+
+    document.getElementById("loading").style.display = "none";
 
   } catch (err) {
     simplifiedOutput.innerText = "Error: " + err.message;
