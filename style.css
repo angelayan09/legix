@@ -10,6 +10,12 @@
 
 body {
   background-color: #ffd591;
+  /*background: linear-gradient(
+    135deg,
+    #ffb347,
+    #ffcc80,
+    #ffe0b2
+  );*/
   color: #000000;
   line-height: 1.6;
   padding-top: 80px;
@@ -28,6 +34,13 @@ html {
   scroll-behavior: smooth;
 }
 
+textarea:focus,
+input:focus{
+  outline: none;
+  border: 2px solid #ffab4a;
+  box-shadow: 0 0 0 4px rgba(247, 174, 92, 0.807);
+}
+
 /* -------------------------------
    Navbar
 ---------------------------------*/
@@ -43,6 +56,9 @@ nav {
   padding: 20px 10%;
   background-color: #ffffff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(8px);
+  background: rgba(255,255,255,0.9);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
 }
 
 nav .logo {
@@ -140,6 +156,26 @@ nav a.active {
   animation-delay: 0.2s;
 }
 
+button{
+  border-radius: 10px;
+  padding: 12px 22px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+
+  background: linear-gradient(135deg,#ffab4a,#ff8a00);
+  color: white;
+
+  box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+
+  transition: all 0.25s ease;
+}
+
+button:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.2);
+}
+
 @keyframes fadeInUp {
   to {
     opacity: 1;
@@ -205,17 +241,39 @@ nav a.active {
 }
 
 .results{
-    width: 90%;
-    margin: 40px auto;
+  width: 90%;
+  margin: 40px auto;
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn{
+  from{
+    opacity:0;
+    transform: translateY(10px);
+  }
+  to{
+    opacity:1;
+    transform: translateY(0);
+  }
 }
 
 .output-box{
-    border: 2px solid #ddd;
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 25px;
-    background: #f9f9f9;
-    text-align: left;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 25px;
+
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(10px);
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+
+  text-align: left;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.output-box:hover{
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
 }
 
 .output-box h3{
@@ -234,6 +292,21 @@ nav a.active {
   padding: 12px;
   border-radius: 8px;
   white-space: pre-wrap;
+}
+
+#charts{
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(10px);
+
+  border-radius: 16px;
+  padding: 25px;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:40px;
 }
 
 /* -------------------------------
