@@ -269,7 +269,7 @@ document.getElementById("simplifyBtn").addEventListener("click", async () => {
     summOutput.innerText = translatedSummary;
 
     const translateAnalysisPrompt =
-      `Fully translate the following text into ${language}. Only output the translated text:\n\n${summ}`;
+      `Fully translate the following text into ${language}. Only output the translated text:\n\n${analy}`;
     const translatedAnalysis = await queryOllama(translateAnalysisPrompt);
     analyOutput.innerText = translatedAnalysis;
 
