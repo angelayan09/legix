@@ -109,9 +109,6 @@ nav a.active {
   transform: scale(1.1);
 }
 
-.section{
-  background: linear-gradient(180deg, #ffab4a, #ffd591);
-}
 .section button {
     transition: transform 0.2s;
 }
