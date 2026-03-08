@@ -202,16 +202,7 @@ nav a.active {
     color: #000000;
 }
 
-.section {
-  height: 90vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  background: linear-gradient(180deg, #ffab4a, #ffd591);
-  color: #ffffff;
-}
+
 
 
 /* -------------------------------
